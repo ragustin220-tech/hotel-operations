@@ -1,18 +1,17 @@
 public class Reservation {
 
-    String roomType;
-    int price;
-    int numberOfNights;
-    boolean weekend;
-    double reservationTotal;
+    private String roomType;
+    private int numberOfNights;
+    private boolean weekend;
+//    private double reservationTotal;
 
 
-    public Reservation(String roomType, int price, int numberOfNights, boolean weekend, double reservationTotal) {
+    public Reservation(String roomType, int numberOfNights, boolean weekend) {
         this.roomType = roomType;
-        this.price = price;
+       // this.price = price;
         this.numberOfNights = numberOfNights;
         this.weekend = weekend;
-        this.reservationTotal = reservationTotal;
+//        this.reservationTotal = reservationTotal;
     }
 
     public String getRoomType() {
@@ -21,14 +20,6 @@ public class Reservation {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getNumberOfNights() {
@@ -42,17 +33,30 @@ public class Reservation {
     public boolean isWeekend() {
         return weekend;
     }
-
     public void setWeekend(boolean weekend) {
         this.weekend = weekend;
     }
+    public double getPrice(){
+        double basePrice;
 
-    public double getReservationTotal() {
-        return reservationTotal;
+        if (this.roomType.equalsIgnoreCase("King")) {
+            basePrice = 139.0;
+        }
+        else if (this.roomType.equalsIgnoreCase("double")){
+            basePrice = 124.0;
+        }
+        else{
+            basePrice = 0;
+        }
+        if (weekend) {
+            System.out.println(basePrice * .10);
+        }
+        else
+            return basePrice;
 
+        return basePrice;
     }
-
-    public void setReservationTotal(double reservationTotal) {
-        this.reservationTotal = reservationTotal;
+    public double getReservationTotal(){
+        return getPrice() * numberOfNights;
     }
 }
