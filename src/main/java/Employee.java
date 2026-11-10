@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Employee {
 
     private int employeeId;
@@ -6,7 +8,7 @@ public class Employee {
     private double payRate;
     private double hoursWorked;
     //when shift was started
-    private int startTime;
+    private double startTime = -1;
 
     public Employee(int employeeId, String name, String department, double payRate, double hoursWorked) {
         this.employeeId = employeeId;
@@ -21,8 +23,34 @@ public class Employee {
     }
     //
     public void punchOut(int time){
-        int hoursThisShift = time - this.startTime;
-        this.hoursWorked +=  hoursThisShift;
+        if (this.startTime != -1){
+            double elapsedHours = time - this.startTime;
+            this.hoursWorked += elapsedHours;
+            this.startTime = -1;
+        }
+//        int hoursThisShift = time - this.startTime;
+//        this.hoursWorked +=  hoursThisShift;
+    }
+
+    public void punchIn(){
+        LocalDateTime now = LocalDateTime.now();
+        int hour = now.getHour();
+        int minute = now.getMinute();
+        this.startTime = hour + (minute /60.0);
+    }
+
+    public void punchOut(){
+        if (this.startTime != -1) {
+            LocalDateTime now = LocalDateTime.now();
+            int hour = now.getHour();
+            int minute = now.getMinute();
+
+            double endTIme = hour + (minute / 60.0);
+            double elapsedHours = endTIme - this.startTime;
+
+            this.hoursWorked += elapsedHours;
+            this.startTime = -1;
+        }
     }
 
     public void setHoursWorked(double hoursWorked){

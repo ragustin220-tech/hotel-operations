@@ -14,7 +14,7 @@ public class Main {
         System.out.println(r1.getPrice());
         System.out.println(r.getPrice());
 
-        Employee An = new Employee(2, "An", "housekeeping", 20 , 10);
+        Employee An = new Employee(2, "An", "housekeeping", 20 , 30);
 
         System.out.println(An.getTotalPay());
 
